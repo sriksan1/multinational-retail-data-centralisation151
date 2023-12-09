@@ -10,8 +10,8 @@ Use your list_db_tables method to get the name of the table containing user data
 Use the read_rds_table method to extract the table containing user data and return a pandas DataFrame.'''
 class DataExtractor:
     def read_rds_table(self, db_connector, table_name):
-        engine = db_connector.init_db_engine(db_connector.read_db_creds('db_creds.yaml'))
-        tables = db_connector.list_db_tables(engine)
+        engine = db_connector.init_db_engine(db_connector.read_db_creds('db_cred.yaml'))
+        tables = db_connector.list_db_tables_inspector(engine)
         if table_name in tables:
             return pd.read_sql(table_name, engine)
         else:
@@ -76,6 +76,8 @@ class DataExtractor:
 
         data_frame = pd.read_json(BytesIO(body))
         return data_frame
+
+
 
 
 
