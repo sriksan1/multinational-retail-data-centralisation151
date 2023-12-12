@@ -28,7 +28,7 @@ class DataExtractor:
         if response.status_code == 200:
             try:
                 data = response.json()
-                return data.get('number_of_stores', 0)
+                return data.get('number_stores', 0)
             except ValueError:
                 print("Failed to parse JSON response")
                 return 0
@@ -37,9 +37,12 @@ class DataExtractor:
             return 0
     def retrieve_stores_data(self,number_stores_url,retrieve_stores_url,header_details):
         num_stores = self.list_number_of_stores(number_stores_url,header_details)
+        print(num_stores)
         all_stores = []
         for store_num in range(1,num_stores+1):
-            format_url = retrieve_stores_url.format(store_number=store_num)
+            #format_url = retrieve_stores_url.format(store_number=store_num)
+            format_url = retrieve_stores_url + str(store_num)
+            print(format_url)
             response = requests.get(format_url,headers=header_details)
             if response.status_code == 200:
                 try:
